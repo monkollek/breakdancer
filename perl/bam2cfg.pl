@@ -115,7 +115,7 @@ foreach my $fbam(@ARGV){
       next unless(defined $lib && $libs{$lib});
       $readlen_stat{$lib}=Statistics::Descriptive::Full->new() if(!defined $readlen_stat{$lib});
       $readlen_stat{$lib}->add_data($t->{readlen});
-      next if ($t->{qual}<=$opts{q});  #skip low quality mapped reads
+      next if ($t->{qual}<=$opts{q} || $t->{dist} > 5000);  #skip low quality mapped reads
       $recordcounter++;
       $libpos{$lib}++;
       if(defined $t->{readgroup}){
